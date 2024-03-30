@@ -19,6 +19,15 @@ export class ImageController {
     };
   }
 
+  @Get('matched')
+  async getImageChecked(): Promise<GetImageMetadataResponse> {
+    return {
+      data: await this.imageService.getImageMetadataMatched(),
+      status: 200,
+      message: 'Success',
+    };
+  }
+
   @Post('insert/:category')
   async insertImageSetByCategory(
     @Param('category')

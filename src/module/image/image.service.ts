@@ -31,9 +31,10 @@ export class ImageService {
     });
   }
 
-  async getImageMetadataMatched(): Promise<Image> {
-    return await this.imageRepository.findOne({
+  async getImageMetadataMatched(): Promise<Image[]> {
+    return await this.imageRepository.find({
       where: { matched: true, confirmed: false },
+      take: 5,
     });
   }
 
