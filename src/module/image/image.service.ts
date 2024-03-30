@@ -18,9 +18,10 @@ export class ImageService {
     private readonly verificationRepository: Repository<Verification>,
   ) {}
 
-  async getImageMetadataClean(category: string): Promise<Image> {
-    return await this.imageRepository.findOne({
+  async getImageMetadataClean(category: string): Promise<Image[]> {
+    return await this.imageRepository.find({
       where: { matched: false, confirmed: false, category },
+      take: 10,
     });
   }
 
