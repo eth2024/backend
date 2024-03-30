@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  Index,
+  PrimaryColumn,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Match {
@@ -6,6 +12,7 @@ export class Match {
   id: number;
 
   @Column()
+  @Index('idx_user')
   user: number;
 
   @Column()

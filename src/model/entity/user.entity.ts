@@ -4,6 +4,7 @@ import {
   PrimaryColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 
 @Entity()
@@ -12,6 +13,7 @@ export class User {
   id: number;
 
   @Column()
+  @Index({ unique: true })
   address: string;
 
   @CreateDateColumn()
