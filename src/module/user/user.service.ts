@@ -17,6 +17,11 @@ export class UserService {
     private readonly verificationRepository: Repository<Verification>,
   ) {}
 
+  async registerUser(address: string): Promise<User> {
+    const user = await this.userRepository.create({ address });
+    return await this.userRepository.save(user);
+  }
+
   async getUser(address: string): Promise<User> {
     return await this.userRepository.findOne({
       where: { address },

@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Inject } from '@nestjs/common';
+import { Controller, Get, Param, Inject, Post, Body } from '@nestjs/common';
 import { UserService } from './user.service';
 import { GetRewardsByUserResponse, GetUserResponse } from 'src/type/user.type';
 
@@ -28,6 +28,18 @@ export class UserController {
   ): Promise<GetRewardsByUserResponse> {
     return {
       data: await this.userService.getRewardsByUser(address),
+      status: 200,
+      message: 'Success',
+    };
+  }
+
+  @Post('register')
+  async registerUser(
+    @Body('address')
+    address: string,
+  ): Promise<GetUserResponse> {
+    return {
+      data: await this.userService.registerUser(address),
       status: 200,
       message: 'Success',
     };
