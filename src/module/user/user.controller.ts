@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Inject } from '@nestjs/common';
-import { User } from 'src/model/entity';
 import { UserService } from './user.service';
+import { GetRewardsByUserResponse, GetUserResponse } from 'src/type/user.type';
 
 @Controller('user')
 export class UserController {
@@ -13,15 +13,23 @@ export class UserController {
   async getUser(
     @Param('address')
     address: string,
-  ): Promise<User> {
-    return await this.userService.getUser(address);
+  ): Promise<GetUserResponse> {
+    return {
+      data: await this.userService.getUser(address),
+      status: 200,
+      message: 'Success',
+    };
   }
 
   @Get('reward')
   async getRewardsByUser(
     @Param('address')
     address: string,
-  ): Promise<number> {
-    return await this.userService.getRewardsByUser(address);
+  ): Promise<GetRewardsByUserResponse> {
+    return {
+      data: await this.userService.getRewardsByUser(address),
+      status: 200,
+      message: 'Success',
+    };
   }
 }
