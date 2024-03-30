@@ -15,6 +15,9 @@ export class Image {
   name: number;
 
   @Column()
+  category: string;
+
+  @Column()
   url: string;
 
   @Column()

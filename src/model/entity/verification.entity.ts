@@ -11,7 +11,7 @@ export class Verification {
   @Column()
   image: number;
 
-  @Column()
+  @Column({ default: false })
   isRewarded: boolean;
 
   @CreateDateColumn()
