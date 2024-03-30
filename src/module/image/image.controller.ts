@@ -12,7 +12,7 @@ export class ImageController {
     category: string,
   ): Promise<GetImageMetadataResponse> {
     return {
-      data: await this.imageService.getImageMetadataClean(),
+      data: await this.imageService.getImageMetadataClean(category),
       status: 200,
       message: 'Success',
     };
