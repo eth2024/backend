@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Image, Match, User, Verification } from 'src/model/entity';
+import * as fs from 'fs/promises';
+import * as path from 'path';
 
 @Injectable()
 export class ImageService {
@@ -68,5 +70,28 @@ export class ImageService {
     });
 
     return await this.matchRepository.save(verification);
+  }
+
+  async insertImageSetByCategory(category: string): Promise<void> {
+    const filenames = await fs.readdir(
+      path.join(__dirname, '../../assets/', category),
+    );
+
+    const images: Image[] = [];
+    filenames.forEach((filename) => {
+      if (filename === '.DS_Store') return;
+
+      const image = this.imageRepository.create({
+        name: filename,
+        category,
+        url: `https://eth2024.s3.ap-northeast-2.amazonaws.com/unlabeled/${category}/${filename}`,
+        matched: false,
+        confirmed: false,
+      });
+
+      images.push(image);
+    });
+
+    await this.imageRepository.insert(images);
   }
 }

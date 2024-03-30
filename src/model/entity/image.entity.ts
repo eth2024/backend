@@ -8,11 +8,11 @@ import {
 
 @Entity()
 export class Image {
-  @PrimaryColumn()
+  @PrimaryColumn({ generated: 'increment' })
   id: number;
 
   @Column()
-  name: number;
+  name: string;
 
   @Column()
   category: string;
@@ -20,15 +20,15 @@ export class Image {
   @Column()
   url: string;
 
-  @Column()
+  @Column({ default: false })
   matched: boolean;
 
-  @Column()
+  @Column({ default: false })
   confirmed: boolean;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt?: Date;
 
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt?: Date;
 }
