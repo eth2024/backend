@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Image, Match, Verification, User } from './model/entity';
+import { FeatureModule } from './module/index.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { Image, Match, Verification, User } from './model/entity';
       entities: [Image, Match, Verification, User],
       synchronize: true,
     }),
+    FeatureModule,
   ],
   controllers: [AppController],
   providers: [AppService],
