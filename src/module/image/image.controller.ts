@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body } from '@nestjs/common';
 import { ImageService } from './image.service';
 import { GetImageMetadataResponse } from 'src/type/image.type';
 import { ResponseType } from '../../type/common.type';
@@ -25,6 +25,40 @@ export class ImageController {
     category: string,
   ): Promise<ResponseType<null>> {
     await this.imageService.insertImageSetByCategory(category);
+
+    return {
+      data: null,
+      status: 200,
+      message: '',
+    };
+  }
+
+  @Post('match')
+  async matchImage(
+    @Body('userAddress')
+    userAddress: string,
+    @Body('imageId')
+    imageId: number,
+    @Body('word')
+    word: string,
+  ): Promise<ResponseType<null>> {
+    await this.imageService.matchImageMetadata(userAddress, imageId, word);
+
+    return {
+      data: null,
+      status: 200,
+      message: '',
+    };
+  }
+
+  @Post('verify')
+  async verifyImage(
+    @Body('userAddress')
+    userAddress: string,
+    @Body('imageId')
+    imageId: number,
+  ): Promise<ResponseType<null>> {
+    await this.imageService.verifyImageMetadata(userAddress, imageId);
 
     return {
       data: null,

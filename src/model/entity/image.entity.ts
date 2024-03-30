@@ -17,6 +17,9 @@ export class Image {
   @Column()
   category: string;
 
+  @Column({ nullable: true })
+  word?: string;
+
   @Column()
   url: string;
 

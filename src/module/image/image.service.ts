@@ -40,8 +40,9 @@ export class ImageService {
   async matchImageMetadata(
     userAddress: string,
     imageId: number,
+    word: string,
   ): Promise<Match> {
-    await this.imageRepository.update({ id: imageId }, { matched: true });
+    await this.imageRepository.update({ id: imageId }, { matched: true, word });
 
     const user = await this.userRepository.findOne({
       where: { address: userAddress },
@@ -59,7 +60,7 @@ export class ImageService {
     userAddress: string,
     imageId: number,
   ): Promise<Verification> {
-    await this.imageRepository.update({ id: imageId }, { matched: true });
+    await this.imageRepository.update({ id: imageId }, { confirmed: true });
 
     const user = await this.userRepository.findOne({
       where: { address: userAddress },
