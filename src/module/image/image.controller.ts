@@ -75,4 +75,22 @@ export class ImageController {
       message: '',
     };
   }
+
+  @Post('modify')
+  async modifyImage(
+    @Body('userAddress')
+    userAddress: string,
+    @Body('imageId')
+    imageId: number,
+    @Body('word')
+    word: string,
+  ): Promise<ResponseType<null>> {
+    await this.imageService.modifyImageMetadata(userAddress, imageId, word);
+
+    return {
+      data: null,
+      status: 200,
+      message: '',
+    };
+  }
 }

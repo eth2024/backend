@@ -75,6 +75,28 @@ export class ImageService {
     return await this.matchRepository.save(verification);
   }
 
+  async modifyImageMetadata(
+    userAddress: string,
+    imageId: number,
+    word: string,
+  ): Promise<Match> {
+    await this.imageRepository.update(
+      { id: imageId },
+      { matched: true, confirmed: true, word },
+    );
+
+    const user = await this.userRepository.findOne({
+      where: { address: userAddress },
+    });
+
+    const match = await this.matchRepository.create({
+      user: user.id,
+      image: imageId,
+    });
+
+    return await this.matchRepository.save(match);
+  }
+
   async insertImageSetByCategory(category: string): Promise<void> {
     const filenames = await fs.readdir(
       path.join(__dirname, '../../assets/', category),
