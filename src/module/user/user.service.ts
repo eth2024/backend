@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, EntityManager } from 'typeorm';
 import { Match, Verification, User } from 'src/model/entity';
 import { CountType } from 'src/type/common.type';
+import { contractInteractor } from 'src/utils/contractInteractor';
 
 @Injectable()
 export class UserService {
@@ -48,5 +49,18 @@ export class UserService {
     const verificationCount = await verificationQuery.getRawOne<CountType>();
 
     return matchCount.count + verificationCount.count;
+  }
+
+  async claimRewardsByUser(address: string): Promise<string> {
+    const rewardAmount = await this.getRewardsByUser(address);
+    if (rewardAmount == 0) return 'No rewards to claim';
+
+    contractInteractor.claim(address, rewardAmount);
+    return `${rewardAmount} rewards claimed`;
+  }
+
+  async slashByUser(address: string): Promise<boolean> {
+    contractInteractor.slash(address);
+    return true;
   }
 }

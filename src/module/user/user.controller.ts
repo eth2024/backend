@@ -1,6 +1,11 @@
 import { Controller, Get, Param, Inject, Post, Body } from '@nestjs/common';
 import { UserService } from './user.service';
-import { GetRewardsByUserResponse, GetUserResponse } from 'src/type/user.type';
+import {
+  GetRewardsByUserResponse,
+  GetUserResponse,
+  ClaimByUserResponse,
+  SlashByUserResponse,
+} from 'src/type/user.type';
 
 @Controller('user')
 export class UserController {
@@ -40,6 +45,30 @@ export class UserController {
   ): Promise<GetUserResponse> {
     return {
       data: await this.userService.registerUser(address),
+      status: 200,
+      message: 'Success',
+    };
+  }
+
+  @Get('claim')
+  async claimRewardsByUser(
+    @Param('address')
+    address: string,
+  ): Promise<ClaimByUserResponse> {
+    return {
+      data: await this.userService.claimRewardsByUser(address),
+      status: 200,
+      message: 'Success',
+    };
+  }
+
+  @Get('slash')
+  async slashByUser(
+    @Param('address')
+    address: string,
+  ): Promise<SlashByUserResponse> {
+    return {
+      data: await this.userService.slashByUser(address),
       status: 200,
       message: 'Success',
     };
