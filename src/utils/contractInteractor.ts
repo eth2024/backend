@@ -7,7 +7,13 @@ import { abi as ABI_stakingManager } from '../constants/abis/stakingManager.json
 import contractAddress from '../constants/address_local.json';
 const ADDRESS_picademy = contractAddress.picademy;
 const ADDRESS_stakingManager = contractAddress.stakingManager;
-const PROVIDER_URL = 'https://rpc.startale.com/zkatana';
+let PROVIDER_URL;
+if (process.env.CHAIN_NAME == 'astar')
+  PROVIDER_URL = 'https://rpc.startale.com/zkatana';
+else if (process.env.CHAIN_NAME == 'neon')
+  PROVIDER_URL = 'https://devnet.neonevm.org';
+else throw new Error('chain not found');
+
 // 스테이킹 MIN = 10e18개로 임시 설정
 const MIN_STAKE_AMOUNT = 10e18;
 
