@@ -3,8 +3,8 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 import { abi as ABI_picademy } from '../constants/abis/picademyErc20.json';
 import { abi as ABI_stakingManager } from '../constants/abis/stakingManager.json';
-// import contractAddress from '../constants/address_test.json';
-import contractAddress from '../constants/address_local.json';
+import contractAddress from '../constants/address_test.json';
+// import contractAddress from '../constants/address_local.json';
 const ADDRESS_picademy = contractAddress.picademy;
 const ADDRESS_stakingManager = contractAddress.stakingManager;
 let PROVIDER_URL;
@@ -70,3 +70,14 @@ export const contractInteractor = {
   claim,
   slash,
 };
+
+(async () => {
+  const a = Object.keys(picademyContract);
+  const b = Object.keys(stakingManagerContract);
+  console.log(a,b);
+  console.log(
+    await picademyContract.balanceOf(
+      '0x457C3bedC0BC83f794eFFB0F6A6A11F03257F894',
+    ),
+  );
+})();
