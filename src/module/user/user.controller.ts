@@ -14,7 +14,7 @@ export class UserController {
     private readonly userService: UserService,
   ) {}
 
-  @Get()
+  @Get(':address')
   async getUser(
     @Param('address')
     address: string,

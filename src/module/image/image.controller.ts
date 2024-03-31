@@ -6,7 +6,7 @@ import { ResponseType } from '../../type/common.type';
 @Controller('image')
 export class ImageController {
   constructor(private readonly imageService: ImageService) {}
-  
+
   @Get('matched')
   async getImageChecked(): Promise<GetImageMetadataResponse> {
     return {
@@ -15,7 +15,7 @@ export class ImageController {
       message: 'Success',
     };
   }
-  
+
   @Get(':category')
   async getImage(
     @Param('category')
@@ -27,7 +27,6 @@ export class ImageController {
       message: 'Success',
     };
   }
-
 
   @Post('insert/:category')
   async insertImageSetByCategory(

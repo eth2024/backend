@@ -2,13 +2,13 @@ import {
   Entity,
   Column,
   Index,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   CreateDateColumn,
 } from 'typeorm';
 
 @Entity()
 export class Match {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
